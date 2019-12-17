@@ -2,7 +2,7 @@
 // The use of this source code is goverened by a BSD-style
 // license that can be found in the LICENSE-file.
 
-package main
+package server
 
 // This file implements a Server that can be created from a Murmur SQLite file.
 // This is read-only, so it's not generally useful.  It's meant as a convenient
@@ -13,12 +13,13 @@ import (
 	"database/sql"
 	"errors"
 	"log"
-	"mumble.info/grumble/pkg/acl"
-	"mumble.info/grumble/pkg/ban"
 	"net"
 	"os"
 	"path/filepath"
 	"strconv"
+
+	"github.com/digitalautonomy/grumble/pkg/acl"
+	"github.com/digitalautonomy/grumble/pkg/ban"
 )
 
 const (

@@ -2,15 +2,17 @@
 // The use of this source code is goverened by a BSD-style
 // license that can be found in the LICENSE-file.
 
-package main
+// +build !windows
+
+package server
 
 import (
-	"github.com/golang/protobuf/proto"
 	"io/ioutil"
-	"mumble.info/grumble/pkg/replacefile"
 	"os"
 	"path/filepath"
 	"strconv"
+
+	"github.com/golang/protobuf/proto"
 )
 
 func (server *Server) freezeToFile() (err error) {
@@ -47,20 +49,9 @@ func (server *Server) freezeToFile() (err error) {
 	if err != nil {
 		return err
 	}
-
-	src := f.Name()
-	dst := filepath.Join(Args.DataDir, "servers", strconv.FormatInt(server.Id, 10), "main.fz")
-	backup := filepath.Join(Args.DataDir, "servers", strconv.FormatInt(server.Id, 10), "backup.fz")
-
-	err = replacefile.ReplaceFile(dst, src, backup, replacefile.Flag(0))
-	// If the dst file does not exist (as in, on first launch)
-	// fall back to os.Rename. ReplaceFile does not work if the
-	// dst file is not there.
-	if os.IsNotExist(err) {
-		err = os.Rename(src, dst)
-		if err != nil {
-			return err
-		}
+	err = os.Rename(f.Name(), filepath.Join(Args.DataDir, "servers", strconv.FormatInt(server.Id, 10), "main.fz"))
+	if err != nil {
+		return err
 	}
 
 	return nil

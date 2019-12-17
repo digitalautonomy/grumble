@@ -7,7 +7,8 @@ package cryptstate
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"mumble.info/grumble/pkg/cryptstate/ocb2"
+
+	"github.com/digitalautonomy/grumble/pkg/cryptstate/ocb2"
 )
 
 // ocb2Mode implements the OCB2-AES128 CryptoMode

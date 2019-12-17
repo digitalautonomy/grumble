@@ -2,11 +2,12 @@
 // The use of this source code is goverened by a BSD-style
 // license that can be found in the LICENSE-file.
 
-package main
+package server
 
 import (
 	"encoding/hex"
-	"mumble.info/grumble/pkg/acl"
+
+	"github.com/digitalautonomy/grumble/pkg/acl"
 )
 
 // A Mumble channel

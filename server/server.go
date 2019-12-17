@@ -2,7 +2,7 @@
 // The use of this source code is goverened by a BSD-style
 // license that can be found in the LICENSE-file.
 
-package main
+package server
 
 import (
 	"bufio"
@@ -15,24 +15,25 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/golang/protobuf/proto"
 	"hash"
 	"log"
-	"mumble.info/grumble/pkg/acl"
-	"mumble.info/grumble/pkg/ban"
-	"mumble.info/grumble/pkg/freezer"
-	"mumble.info/grumble/pkg/htmlfilter"
-	"mumble.info/grumble/pkg/logtarget"
-	"mumble.info/grumble/pkg/mumbleproto"
-	"mumble.info/grumble/pkg/serverconf"
-	"mumble.info/grumble/pkg/sessionpool"
-	"mumble.info/grumble/pkg/web"
 	"net"
 	"net/http"
 	"path/filepath"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/digitalautonomy/grumble/pkg/acl"
+	"github.com/digitalautonomy/grumble/pkg/ban"
+	"github.com/digitalautonomy/grumble/pkg/freezer"
+	"github.com/digitalautonomy/grumble/pkg/htmlfilter"
+	"github.com/digitalautonomy/grumble/pkg/logtarget"
+	"github.com/digitalautonomy/grumble/pkg/mumbleproto"
+	"github.com/digitalautonomy/grumble/pkg/serverconf"
+	"github.com/digitalautonomy/grumble/pkg/sessionpool"
+	"github.com/digitalautonomy/grumble/pkg/web"
+	"github.com/golang/protobuf/proto"
 )
 
 // The default port a Murmur server listens on
@@ -1452,9 +1453,9 @@ func (server *Server) Start() (err error) {
 		// Set sensible timeouts, in case no reverse proxy is in front of Grumble.
 		// Non-conforming (or malicious) clients may otherwise block indefinitely and cause
 		// file descriptors (or handles, depending on your OS) to leak and/or be exhausted
-		ReadTimeout: 5 * time.Second,
+		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
-		IdleTimeout: 2 * time.Minute,
+		IdleTimeout:  2 * time.Minute,
 	}
 	go func() {
 		err := server.webhttp.ListenAndServeTLS("", "")

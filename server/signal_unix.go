@@ -4,14 +4,15 @@
 
 // +build darwin freebsd linux netbsd openbsd
 
-package main
+package server
 
 import (
 	"fmt"
-	"mumble.info/grumble/pkg/logtarget"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/digitalautonomy/grumble/pkg/logtarget"
 )
 
 func SignalHandler() {

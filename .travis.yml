@@ -4,8 +4,8 @@ go:
   - 1.9
   - 1.10.x
 
-go_import_path: mumble.info/grumble
+go_import_path: github.com/digitalautonomy/grumble
 
 script:
-  - go build mumble.info/grumble/cmd/grumble
+  - go build github.com/digitalautonomy/grumble/server
   - go test -v ./...

@@ -2,19 +2,20 @@
 // The use of this source code is goverened by a BSD-style
 // license that can be found in the LICENSE-file.
 
-package main
+package server
 
 import (
 	"crypto/aes"
 	"crypto/tls"
 	"fmt"
-	"github.com/golang/protobuf/proto"
-	"mumble.info/grumble/pkg/acl"
-	"mumble.info/grumble/pkg/ban"
-	"mumble.info/grumble/pkg/freezer"
-	"mumble.info/grumble/pkg/mumbleproto"
 	"net"
 	"time"
+
+	"github.com/digitalautonomy/grumble/pkg/acl"
+	"github.com/digitalautonomy/grumble/pkg/ban"
+	"github.com/digitalautonomy/grumble/pkg/freezer"
+	"github.com/digitalautonomy/grumble/pkg/mumbleproto"
+	"github.com/golang/protobuf/proto"
 )
 
 type Message struct {

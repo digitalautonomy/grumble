@@ -2,7 +2,7 @@
 // The use of this source code is goverened by a BSD-style
 // license that can be found in the LICENSE-file.
 
-package main
+package server
 
 import (
 	"bufio"
@@ -10,16 +10,17 @@ import (
 	"crypto/tls"
 	"encoding/binary"
 	"errors"
-	"github.com/golang/protobuf/proto"
 	"io"
 	"log"
-	"mumble.info/grumble/pkg/acl"
-	"mumble.info/grumble/pkg/cryptstate"
-	"mumble.info/grumble/pkg/mumbleproto"
-	"mumble.info/grumble/pkg/packetdata"
 	"net"
 	"runtime"
 	"time"
+
+	"github.com/digitalautonomy/grumble/pkg/acl"
+	"github.com/digitalautonomy/grumble/pkg/cryptstate"
+	"github.com/digitalautonomy/grumble/pkg/mumbleproto"
+	"github.com/digitalautonomy/grumble/pkg/packetdata"
+	"github.com/golang/protobuf/proto"
 )
 
 // A client connection
