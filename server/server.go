@@ -1428,19 +1428,20 @@ func (server *Server) Start() (err error) {
 		}
 	*/
 
+	// Wrap a TLS listener around the TCP connection
+	certFn := filepath.Join(Args.DataDir, "cert.pem")
+	keyFn := filepath.Join(Args.DataDir, "key.pem")
+	cert, err := tls.LoadX509KeyPair(certFn, keyFn)
+	if err != nil {
+		return err
+	}
+	server.tlscfg = &tls.Config{
+		Certificates: []tls.Certificate{cert},
+		ClientAuth:   tls.RequestClientCert,
+	}
+	server.tlsl = tls.NewListener(server.tcpl, server.tlscfg)
+
 	if shouldListenWeb {
-		// Wrap a TLS listener around the TCP connection
-		certFn := filepath.Join(Args.DataDir, "cert.pem")
-		keyFn := filepath.Join(Args.DataDir, "key.pem")
-		cert, err := tls.LoadX509KeyPair(certFn, keyFn)
-		if err != nil {
-			return err
-		}
-		server.tlscfg = &tls.Config{
-			Certificates: []tls.Certificate{cert},
-			ClientAuth:   tls.RequestClientCert,
-		}
-		server.tlsl = tls.NewListener(server.tcpl, server.tlscfg)
 		// Create HTTP server and WebSocket "listener"
 		webaddr := &net.TCPAddr{IP: net.ParseIP(host), Port: webport}
 		server.webtlscfg = &tls.Config{
@@ -1540,16 +1541,16 @@ func (server *Server) Stop() (err error) {
 		} else if err != nil {
 			return err
 		}
-		// Close the listeners
-		err = server.tlsl.Close()
-		if err != nil {
-			return err
-		}
-
 		err = server.webwsl.Close()
 		if err != nil {
 			return err
 		}
+	}
+
+	// Close the listeners
+	err = server.tlsl.Close()
+	if err != nil {
+		return err
 	}
 
 	err = server.tcpl.Close()
