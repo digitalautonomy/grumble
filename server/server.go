@@ -1553,11 +1553,6 @@ func (server *Server) Stop() (err error) {
 		return err
 	}
 
-	err = server.tcpl.Close()
-	if err != nil {
-		return err
-	}
-
 	// Close the UDP connection
 	err = server.udpconn.Close()
 	if err != nil {
