@@ -18,7 +18,7 @@ var defaultCfg = map[string]string{
 	"AllowHTML":             "true",
 	"DefaultChannel":        "0",
 	"RememberChannel":       "true",
-	"WelcomeText":           "Welcome to this server running <b>Tonio</b>.",
+	"WelcomeText":           "Welcome to this server running <b>Grumble</b>.",
 	"SendVersion":           "true",
 }
 
