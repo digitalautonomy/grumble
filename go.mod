@@ -1,6 +1,6 @@
 module github.com/digitalautonomy/grumble
 
-go 1.20
+go 1.19
 
 require (
 	github.com/golang/protobuf v1.3.2
