@@ -78,3 +78,15 @@ func (target *LogTarget) Rotate() error {
 
 	return nil
 }
+func (target *LogTarget) Close() error {
+	target.mu.Lock()
+	defer target.mu.Unlock()
+
+	// Close the existing log file
+	err := target.file.Close()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

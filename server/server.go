@@ -1661,6 +1661,8 @@ func (server *Server) Stop() (err error) {
 	server.cleanPerLaunchData()
 	server.running = false
 	server.Printf("Stopped")
+	logtarget.Target.Close()
+	server.freezelog.Close()
 
 	return nil
 }
